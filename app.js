@@ -3,9 +3,10 @@ const inicioDebug = require('debug')('app.inicio');//Importa el paquete debug
                                                    //de depuracion.
 const dbDebug = require('debug')('app:db');
 const usuarios = require('./routes/usuarios');
+const productos = require('./routes/productos');
 const express = require('express'); //Importa el paquete express
 const app = express(); //Crea una instancia de express
-const config =require('config');//Importa el modulo config
+const config = require('config');//Importa el modulo config
 const joi = require('joi'); //Importa el paquete joi
 const logger = require('./logger');
 const morgan = require('morgan');
@@ -31,7 +32,8 @@ app.use('/api/usuarios', usuarios); //Middleware que importamos
 //El primer parametro es la ruta raiz asociada
 //con las peticiones a los atos de usuarios
 //La ruta raiz se va a concatenar como prefijo
-//al inicio de todas als tutas definidas en el archivo usuarios                                
+//al inicio de todas als tutas definidas en el archivo usuarios  
+app.use('/api/productos',productos);                              
 
 console.log(`Aplicacion: ${config.get('nombre')}`);
 console.log(`BD server: ${config.get('configDB.host')}`);
@@ -78,9 +80,9 @@ app.get('/',(req,res)=>{
 //     res.send(req.query);
 // })
 
-app.get('/api/productos', (req,res)=>{
-    res.send(['mouse','teclado','bocinas']);
-});
+// app.get('/api/productos', (req,res)=>{
+//     res.send(['mouse','teclado','bocinas']);
+// });
 
 
 //El modulo process, contiene informacion del sistema
